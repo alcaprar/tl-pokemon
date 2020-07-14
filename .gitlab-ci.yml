@@ -1,0 +1,37 @@
+# Node docker image on which this would be run
+image: node:12
+
+cache:
+  paths:
+    - node_modules/
+
+stages:
+  - test
+  - deploy
+
+
+test:
+  image: node:12
+  stage: test
+  before_script:
+    - yarn install
+  script: 
+    - yarn run ci:test
+  artifacts:
+    reports:
+      junit: junit.xml # uploads results in junit format to gitlab
+    paths:
+      - junit.xml
+      - node_modules # cache of node modules folder
+    expire_in: 2 hours
+
+deploy:
+  image: ruby:latest
+  only:
+    - master
+  stage: deploy
+  script:
+    - apt-get update -qy
+    - apt-get install -y ruby-dev
+    - gem install dpl
+    - dpl --provider=heroku --app=$HEROKU_APP --api-key=$HEROKU_API_KEY
