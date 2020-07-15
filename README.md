@@ -80,11 +80,21 @@ If you want to run your test run `yarn test`.
 
 ## Production server
 
+### Server
+
 Before running the production server the code must be built running `yarn build`. This generates `.js` files into `dist` folder.
 
 Once the server is built you can run it with `yarn start`. 
 
 You can customize the listening port and host by changing `PORT` and `SERVER_HOST` environment variables. Default to `3000` and `0.0.0.0`.
+
+### Docker
+
+You can run this server using docker.
+
+First build the image: `docker build -t tl-pokemon .`.
+
+Then run the docker container: `docker run -p 3000:3000 tl-pokemon`
 
 ## CI/CD
 
