@@ -33,25 +33,29 @@ class PokemonController implements Controller {
     const shakespeareTranslator = new Shakespeare()
     const pokemonName: string = request.params.pokemonName || ''
     
-    const pokemonExists = await pokedexService.isValidPokemonName(pokemonName)
-    debug('[getPokemonShakespeareTranslation] pokemonExists', pokemonExists)
-    if (pokemonExists) {
-      const pokemonDescription = await pokedexService.getPokemonDescriptionByName(pokemonName)
-      debug('[getPokemonShakespeareTranslation] pokemonDescription', pokemonDescription)
+    try {
+      const pokemonExists = await pokedexService.isValidPokemonName(pokemonName)
+      debug('[getPokemonShakespeareTranslation] pokemonExists', pokemonExists)
+      if (pokemonExists) {
+        const pokemonDescription = await pokedexService.getPokemonDescriptionByName(pokemonName)
+        debug('[getPokemonShakespeareTranslation] pokemonDescription', pokemonDescription)
 
-      if (pokemonDescription) {
-        const translatedDescription = await shakespeareTranslator.translate(pokemonDescription)
-        debug('[getPokemonShakespeareTranslation] translatedDescription', translatedDescription)
+        if (pokemonDescription) {
+          const translatedDescription = await shakespeareTranslator.translate(pokemonDescription)
+          debug('[getPokemonShakespeareTranslation] translatedDescription', translatedDescription)
 
-        response.send({
-          name: pokemonName,
-          description: translatedDescription
-        })
+          response.send({
+            name: pokemonName,
+            description: translatedDescription
+          })
+        } else {
+          response.status(404).send(`Description for ${pokemonName} not found.`)
+        }
       } else {
-        response.status(404).send(`Description for ${pokemonName} not found.`)
+        response.status(404).send('Pokemon does NOT exists.')
       }
-    } else {
-      response.status(404).send('Pokemon does NOT exists.')
+    } catch (error) {
+      response.status(500).send('There was an error with external API. Please retry. Contact us if the problem persists.')
     }
   }
 }
