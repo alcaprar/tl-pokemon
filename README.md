@@ -16,27 +16,27 @@ This service responds to the following endpoints.
 
 This endpoint is used to check if the service is alive or not.
 
-- URL: `/ping`
-- Methods: `GET`
-- Success Response:
+- **URL**: `/ping`
+- **Methods**: `GET`
+- **Success Response**:
   - Code: 200 <br>
   Type: `text` <br>
   Content: `pong`
-- Example call: `curl https://tl-pokemon.herokuapp.com/ping`
+- **Example call**: `curl https://tl-pokemon.herokuapp.com/ping`
 
 ### Pokemon translator
 
 This endpoint returns the pokemon description translated in Shakespearian language.
 
-- URL: `/pokemon/:pokemonName`
-- Method: `GET`
-- Params:
+- **URL**: `/pokemon/:pokemonName`
+- **Method**: `GET`
+- **Params**:
   - `pokemonName`: name of the pokemon to search for
-- Success response:
+- **Success response**:
   - Code: `200` <br>
   Type: `json` <br>
   Content: `{"name": "", "description":""}`
-- Error response:
+- **Error response**:
   - Code: 404 <br>
   Content: `Pokemon NOT found`
   - Code: 404 <br>
