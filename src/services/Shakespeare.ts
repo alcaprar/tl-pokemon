@@ -10,13 +10,17 @@ export default class Shakespeare implements IShakespeare {
 
   public async translate (text: string): Promise<string> {
     debug('[translate] text to translate:', text)
-    const response: AxiosResponse = await axios.post(`${API_URL}`, {
-      text
-    })
-    const data: TranslateResponse = response.data
-    const textTranslated = data.contents.translated || ''
-    debug('[translate] text translated:', textTranslated)
-  
-    return textTranslated
+    try {
+      const response: AxiosResponse = await axios.post(`${API_URL}`, {
+        text
+      })
+      const data: TranslateResponse = response.data
+      const textTranslated = data.contents.translated || ''
+      debug('[translate] text translated:', textTranslated)
+      return textTranslated
+    } catch (error) {
+      debug('[translate] error', error)
+      throw new Error('Server error.')
+    }
   }
 }

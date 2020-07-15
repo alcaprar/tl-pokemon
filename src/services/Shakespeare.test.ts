@@ -21,4 +21,16 @@ describe('shakespeare service', () => {
     
     expect(response).toBe('Farewell mine sweety baby')
   })
+
+  test('should throw an error when the service does not answer', async () => {
+    const shakespeare = new Shakespeare()
+    mockedAxios.post.mockImplementationOnce(() => Promise.reject({
+      status: 500
+    }));
+    try {
+      await shakespeare.translate('Bye my sweety baby')
+    } catch (error) {
+      expect(error).toBeDefined()
+    }
+  })
 })
