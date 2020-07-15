@@ -44,7 +44,7 @@ This endpoint returns the pokemon description translated in Shakespearian langua
   - Code: 500 <br>
   Content: `There was an error with external API. Please retry. Contact us if the problem persists.`
   Description: either Pokeapi or shakespeare translator are down. Just retry.
-- Example call: `curl https://tl-pokemon.herokuapp.com/pokemon/pikachu`
+- **Example call**: `curl https://tl-pokemon.herokuapp.com/pokemon/pikachu`
 
 ## Local development & test
 
