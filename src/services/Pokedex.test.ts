@@ -59,4 +59,39 @@ describe('pokedex service', () => {
     const description = await pokedex.getPokemonDescriptionByName('ciaone')
     expect(description).toBe('')
   })
+
+  test('pokemon isValidName, should throw an error when the server is down', async () => {
+    // mocking the axios response that is used by the pokeapiclient
+    const mockedResponse = {
+      response: {
+        status: 500
+      }
+    }
+    mockedAxios.get.mockImplementationOnce(() => Promise.reject(mockedResponse));
+    
+    const pokedex = new Pokedex()
+    try {
+      await pokedex.isValidPokemonName('ciaone')
+    } catch (error) {
+      expect(error).toBeDefined()
+    }
+  })
+
+
+  test('pokemon description, should throw an error when the server is down', async () => {
+    // mocking the axios response that is used by the pokeapiclient
+    const mockedResponse = {
+      response: {
+        status: 500
+      }
+    }
+    mockedAxios.get.mockImplementationOnce(() => Promise.reject(mockedResponse));
+    
+    const pokedex = new Pokedex()
+    try {
+      await pokedex.getPokemonDescriptionByName('ciaone')
+    } catch (error) {
+      expect(error).toBeDefined()
+    }
+  })
 })

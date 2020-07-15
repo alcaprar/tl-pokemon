@@ -21,10 +21,11 @@ export default class Pokedex implements IPokedex {
       // in case of an error the client returns a normal axios response
       if (error.response.status === 404) {
         debug(`[isValidPokemonName] "${pokemonName}" not found.`)
+        return false
       } else {
         debug('[isValidPokemonName] error', error)
+        throw new Error('Server error.')
       }
-      return false
     }
   }
 
@@ -41,10 +42,11 @@ export default class Pokedex implements IPokedex {
       // in case of an error the client returns a normal axios response
       if (error.response.status === 404) {
         debug(`[getPokemonDescriptionByName] "${pokemonName}" not found.`)
+        return ''
       } else {
         debug('[getPokemonDescriptionByName] error', error)
+        throw new Error('Server error.')
       }
-      return ''
     }
   }
 
