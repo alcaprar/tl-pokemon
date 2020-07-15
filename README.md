@@ -78,6 +78,14 @@ Tests are colocated with code and files are named `SOME_FILE.test.ts`.
 
 If you want to run your test run `yarn test`.
 
+## Production server
+
+Before running the production server the code must be built running `yarn build`. This generates `.js` files into `dist` folder.
+
+Once the server is built you can run it with `yarn start`. 
+
+You can customize the listening port and host by changing `PORT` and `SERVER_HOST` environment variables. Default to `3000` and `0.0.0.0`.
+
 ## CI/CD
 
 This repository uses GitLab CI for automated tests and deploy for every commit to master branch.
